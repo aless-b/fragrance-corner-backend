@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  perfume-db:
+    image: mysql:8.0
+    container_name: perfume-mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: fragrance_corner_db
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_perfume_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  perfume-backend:
+    build: .
+    container_name: perfume-express-backend
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - DB_HOST=perfume-db
+      - DB_USER=root
+      - DB_PASSWORD=rootpassword
+      - DB_NAME=fragrance_corner_db
+    depends_on:
+      perfume-db:
+        condition: service_healthy
+
+volumes:
+  mysql_perfume_data:
+    name: mysql_perfume_data
