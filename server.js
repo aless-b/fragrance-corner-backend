@@ -43,6 +43,10 @@ const requireBearerToken = (req, res, next) => {
 };
 
 // Rutas Públicas
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', service: 'Fragrance Corner MySQL Backend' });
+});
+
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', service: 'Fragrance Corner MySQL Backend', timestamp: new Date().toISOString() });
 });
