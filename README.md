@@ -81,3 +81,18 @@ perfume-backend/
 ├── package.json
 └── README.md
 ```
+
+---
+
+## 🔍 Vulnerability & Security Assessment (Nuclei Scan)
+
+Automated dynamic application security testing (DAST) was conducted against the running container using [Nuclei](https://github.com/projectdiscovery/nuclei) with official HTTP vulnerability templates.
+
+| Finding | Severity | Classification | Impact / Description |
+| :--- | :---: | :---: | :--- |
+| **Node.js Express Development Mode Active (`node-express-dev-env`)** | **Medium** | **CWE-209** | The Express application runs in development mode (`NODE_ENV != production`). When receiving malformed JSON requests, the server responds with an HTTP 400 status including a **full debugging stack trace**, exposing internal server filesystem paths such as `/app/node_modules/body-parser/lib/...`. |
+| **Technology Stack Disclosure (`X-Powered-By`)** | **Info** | CWE-200 | The HTTP response headers explicitly disclose the underlying server technologies: `Server: nginx/1.28.3` and `X-Powered-By: Express`. |
+| **WAF / Traffic Filter Detection (`waf-detect`, `waf-fuzz`)** | **Info** | CWE-200 | Filter rules actively intercept and drop malicious SQL injection test payloads with generic HTTP 403 responses. |
+
+> Detailed scan logs are archived under [`reports/nuclei-backend-results.txt`](reports/nuclei-backend-results.txt) and [`reports/nuclei-backend-results.jsonl`](reports/nuclei-backend-results.jsonl).
+
