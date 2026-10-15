@@ -70,6 +70,9 @@ docker compose up -d --build
 
 ```text
 perfume-backend/
+├── reports/                # DAST security assessment reports (Nuclei)
+│   ├── nuclei-backend-results.jsonl
+│   └── nuclei-backend-results.txt
 ├── db.js                   # MySQL pool connection, table initialization & CRUD operations
 ├── server.js               # Express server, JWT validation middleware & API routes
 ├── Dockerfile              # Docker image with Node 20, Nginx, Fail2Ban & iptables
