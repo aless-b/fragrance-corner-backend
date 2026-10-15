@@ -1,0 +1,4 @@
+[waf-fuzz:nginxgeneric] [http] [info] http://host.docker.internal:3001 [whatwaf-payloads="\\'))) AND \\'1\\'=\\'1\\' (((\\'"]
+[waf-fuzz:securesphere] [http] [info] http://host.docker.internal:3001 [whatwaf-payloads="\\'))) AND \\'1\\'=\\'1\\' (((\\'"]
+[node-express-dev-env] [http] [medium] http://host.docker.internal:3001
+[waf-detect:nginxgeneric] [http] [info] http://host.docker.internal:3001
